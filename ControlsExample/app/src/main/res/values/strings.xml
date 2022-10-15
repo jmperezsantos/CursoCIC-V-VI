@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ControlsExample</string>
+    <string name="placeholder_text">Hola Mundo!!</string>
+
+    <string name="otro_texto">Este es otro texto desde resources</string>
+    <string name="generic_placeholder">Texto de ayuda</string>
+    <string name="initial_text">Texto de inicio</string>
+    <string name="button_text">Presiona</string>
+</resources>

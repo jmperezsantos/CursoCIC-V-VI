@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Français</string>
+
+    <string name="title">c\'est un titre</string>
+    <string name="any_text">Ceci est un texte d\'aide</string>
+    <string name="other_random_text">autre texte aléatoire</string>
+
+    <string name="currency_sign">€</string>
+</resources>

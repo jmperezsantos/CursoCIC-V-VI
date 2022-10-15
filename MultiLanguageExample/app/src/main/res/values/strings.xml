@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">Español</string>
+
+    <string name="title">Este es un título</string>
+    <string name="any_text">Este es un texto auxiliar</string>
+    <string name="other_random_text">Otro texto aleatorio</string>
+
+    <string name="currency_sign">$</string>
+
+</resources>
