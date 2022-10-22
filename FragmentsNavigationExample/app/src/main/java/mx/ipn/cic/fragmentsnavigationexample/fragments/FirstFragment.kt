@@ -6,11 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.google.android.material.slider.Slider
+import com.google.android.material.textfield.TextInputLayout
 import mx.ipn.cic.fragmentsnavigationexample.R
 
 class FirstFragment : Fragment() {
 
     lateinit var btnNavega: Button
+    lateinit var tilCampoTexto: TextInputLayout
+    lateinit var sSlider: Slider
 
     /*FirstFragment(){
         super()
@@ -56,23 +60,33 @@ class FirstFragment : Fragment() {
         //Ya tenemos UI
         //Configurar los elementos visuales del fragment
 
+        this.tilCampoTexto = view.findViewById(R.id.tilCampoTexto)
+        this.sSlider = view.findViewById(R.id.sSlider)
+
         this.btnNavega = view.findViewById(R.id.btnNavega)
         this.btnNavega.setOnClickListener {
 
-            //Poner fragmento 2
-            val fragment2 = SecondFragment.newInstance()
+            if (this.tilCampoTexto.editText!!.text.isNotEmpty()) {
 
-            val transaction = this.parentFragmentManager.beginTransaction()
+                this.tilCampoTexto.error = null
 
-            transaction.replace(
-                R.id.fragmentContainer,
-                fragment2
-            )
+                //Poner fragmento 2
+                val fragment2 = SecondFragment.newInstance(
+                    this.tilCampoTexto.editText?.text.toString(),
+                    this.sSlider.value.toInt()
+                )
 
-            transaction.addToBackStack("firstFragment")
+                val transaction = this.parentFragmentManager.beginTransaction()
+                transaction.replace(
+                    R.id.fragmentContainer,
+                    fragment2
+                )
+                transaction.addToBackStack("firstFragment")
+                transaction.commit()
 
-            transaction.commit()
-
+            } else {
+                this.tilCampoTexto.error = "Debes capturar algo"
+            }
         }
 
     }

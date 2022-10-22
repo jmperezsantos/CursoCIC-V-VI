@@ -12,20 +12,22 @@ class MainActivity : AppCompatActivity() {
 
         this.setContentView(R.layout.activity_main)
 
-        //Generar instancia del Fragmento
-        val fragment1 = FirstFragment.newInstance()
+        if (savedInstanceState == null) {
+            //Generar instancia del Fragmento
+            val fragment1 = FirstFragment.newInstance()
 
-        //Iniciar una transacción
-        val fragmentTansaction = this.supportFragmentManager.beginTransaction()
+            //Iniciar una transacción
+            val fragmentTansaction = this.supportFragmentManager.beginTransaction()
 
-        //Definir la transacción
-        fragmentTansaction.add(
-            R.id.fragmentContainer,
-            fragment1
-        )
+            //Definir la transacción
+            fragmentTansaction.add(
+                R.id.fragmentContainer,
+                fragment1
+            )
 
-        //Confirmar la transacción
-        fragmentTansaction.commit()
+            //Confirmar la transacción
+            fragmentTansaction.commit()
+        }
 
     }
 
