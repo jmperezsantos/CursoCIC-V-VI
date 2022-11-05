@@ -25,7 +25,7 @@ class ContactsAdapter(
         //Nueva vista (items)
         val inflater = LayoutInflater.from(parent.context)
         val cardView = inflater.inflate(
-            R.layout.contact_grid_item,
+            R.layout.contact_list_item,
             parent,
             false
         )

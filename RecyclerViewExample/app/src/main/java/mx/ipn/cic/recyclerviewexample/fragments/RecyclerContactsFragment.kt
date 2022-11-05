@@ -43,13 +43,13 @@ class RecyclerContactsFragment : Fragment() {
 
         //Se especifica el "tipo" de colección a mostrar
         //LISTA:
-        // this.contactsRecycler.layoutManager = LinearLayoutManager(this.context)
+        this.contactsRecycler.layoutManager = LinearLayoutManager(this.context)
 
         //CUADRICULA:
-        this.contactsRecycler.layoutManager = GridLayoutManager(
+        /*this.contactsRecycler.layoutManager = GridLayoutManager(
             this.context,
             3
-        )
+        )*/
 
         val adapter = ContactsAdapter(createDummyContacts(20)) { contacto ->
 
