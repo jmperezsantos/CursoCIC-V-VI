@@ -33,40 +33,45 @@ class ProductService {
     ) {
 
         this.productWSClient.getAllProducts()
-            .enqueue(object : Callback<Map<String, ProductDTO>> { //Explicar Clase Anónima
+            .enqueue( //Se ejecuta en segundo plano
+                object : Callback<Map<String, ProductDTO>> { //Explicar Clase Anónima
 
-                //Llamadas exitosas
-                override fun onResponse(
-                    call: Call<Map<String, ProductDTO>>,
-                    response: Response<Map<String, ProductDTO>>
-                ) {
+                    //Llamadas exitosas
+                    override fun onResponse(
+                        call: Call<Map<String, ProductDTO>>,
+                        response: Response<Map<String, ProductDTO>>
+                    ) {
 
-                    if (response.isSuccessful) {
+                        if (response.isSuccessful) {
 
-                        val productList = mutableListOf<ProductDTO>()
+                            val productList = mutableListOf<ProductDTO>()
 
-                        val productMap = response.body()!!
-                        productMap.keys.forEach { clave ->
+                            val productMap = response.body()!!
 
-                            val product = productMap[clave]!!
-                            product.id = clave
+                            productMap.keys.forEach { clave ->
 
-                            productList.add(product)
+                                val product = productMap[clave]!!
+                                product.id = clave
 
+                                productList.add(product)
+
+                            }
+
+                            success(productList)
                         }
 
-                        success(productList)
                     }
 
-                }
+                    //Llamada fallida
+                    override fun onFailure(
+                        call: Call<Map<String, ProductDTO>>,
+                        err: Throwable
+                    ) {
+                        Log.e("MPS", "Ocurrió un error: ${err.message}")
+                        error(err.message.toString())
+                    }
 
-                //Llamada fallida
-                override fun onFailure(call: Call<Map<String, ProductDTO>>, err: Throwable) {
-                    Log.e("MPS", "Ocurrió un error: ${err.message}")
-                    error(err.message.toString())
-                }
-
-            })
+                })
 
     }
 
@@ -75,7 +80,29 @@ class ProductService {
         success: (String) -> Unit,
         error: (String) -> Unit
     ) {
-        //TODO Consumir WS
+        this.productWSClient.createProduct(newProduct)
+            .enqueue(object : Callback<Map<String, String>> {
+                override fun onResponse(
+                    call: Call<Map<String, String>>,
+                    response: Response<Map<String, String>>
+                ) {
+
+                    if (response.isSuccessful) {
+                        val responseMap = response.body()!!
+                        success(responseMap["name"]!!)
+                    } else {
+                        error(response.message())
+                    }
+
+                }
+
+                override fun onFailure(call: Call<Map<String, String>>, t: Throwable) {
+
+                    Log.e("MPS", "Ocurrió un error: ${t.message}")
+                    error(t.message.toString())
+                }
+
+            })
     }
 
     fun updateProduct(
@@ -91,7 +118,31 @@ class ProductService {
         success: () -> Unit,
         error: (String) -> Unit
     ) {
-        //TODO Consumir WS
+
+        this.productWSClient.deleteProduct(productId)
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(
+                    call: Call<Void>,
+                    response: Response<Void>
+                ) {
+
+                    if (response.isSuccessful) {
+                        success()
+                    } else {
+                        error(response.message())
+                    }
+
+                }
+
+                override fun onFailure(
+                    call: Call<Void>,
+                    t: Throwable
+                ) {
+                    Log.e("MPS", "Ocurrió un error: ${t.message}")
+                    error(t.message.toString())
+                }
+            })
+
     }
 
 }
