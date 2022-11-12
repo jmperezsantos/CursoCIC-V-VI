@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import mx.ipn.cic.pokedex.R
 import mx.ipn.cic.pokedex.adapter.PokemonRecyclerAdapter
 import mx.ipn.cic.pokedex.services.PokemonService
@@ -15,6 +16,7 @@ import mx.ipn.cic.pokedex.services.PokemonService
 class PokemonListFragment : Fragment() {
 
     private lateinit var pokemonRecycler: RecyclerView
+    private lateinit var lavLoader: LottieAnimationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,7 @@ class PokemonListFragment : Fragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
+        this.lavLoader = view.findViewById(R.id.lavLoader)
         this.pokemonRecycler = view.findViewById(R.id.rvPokemons)
         this.pokemonRecycler.layoutManager = LinearLayoutManager(this.context)
 
@@ -46,6 +49,7 @@ class PokemonListFragment : Fragment() {
         super.onStart()
         //Los consumos de WS o BD van aqui ;)
 
+        this.lavLoader.visibility = View.VISIBLE
         PokemonService.instance.getAllPokemons(
             { pokemonSummaryList ->
 
@@ -61,10 +65,21 @@ class PokemonListFragment : Fragment() {
                         Toast.LENGTH_LONG
                     ).show()
 
+                    val fragment = PokemonDetailFragment.newInstance(selectedPokemon)
+
+                    val transaction = this.parentFragmentManager.beginTransaction()
+                    transaction.replace(
+                        R.id.pokeContainer,
+                        fragment
+                    )
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+
                 }
 
                 this.pokemonRecycler.adapter = adapter
 
+                this.lavLoader.visibility = View.INVISIBLE
             },
             { error ->
 
@@ -74,6 +89,7 @@ class PokemonListFragment : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
 
+                this.lavLoader.visibility = View.INVISIBLE
             }
         )
 

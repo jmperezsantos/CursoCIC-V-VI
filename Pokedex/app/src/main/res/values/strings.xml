@@ -5,4 +5,6 @@
     <string name="pokemon_name">Pokemon Name</string>
     <string name="altura">Altura</string>
     <string name="pokemons">Pokemons!</string>
+    <string name="peso">Peso</string>
+    <string name="detalle_del_pokemon">Detalle del Pokemon</string>
 </resources>
