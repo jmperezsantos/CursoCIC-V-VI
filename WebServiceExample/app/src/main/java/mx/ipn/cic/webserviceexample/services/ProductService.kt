@@ -47,7 +47,6 @@ class ProductService {
                             val productList = mutableListOf<ProductDTO>()
 
                             val productMap = response.body()!!
-
                             productMap.keys.forEach { clave ->
 
                                 val product = productMap[clave]!!
@@ -110,7 +109,35 @@ class ProductService {
         success: (ProductDTO) -> Unit,
         error: (String) -> Unit
     ) {
-        //TODO Consumir WS
+
+        this.productWSClient.updateProduct(
+            product,
+            product.id!!
+        )
+            .enqueue(object : Callback<ProductDTO> {
+                override fun onResponse(
+                    call: Call<ProductDTO>,
+                    response: Response<ProductDTO>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body()?.let {
+                            success(it)
+                        }
+                        //response.body()?.let(success)
+                    } else {
+                        error(response.message())
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ProductDTO>,
+                    t: Throwable
+                ) {
+                    Log.e("MPS", "Ocurrió un error: ${t.message}")
+                    error(t.message.toString())
+                }
+            })
+
     }
 
     fun deleteProduct(

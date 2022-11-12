@@ -53,32 +53,68 @@ class ProductEditFragment : Fragment() {
         )
 
         this.btnUpdate = view.findViewById(R.id.btnUpdate)
+        this.btnUpdate.setOnClickListener {
+            this.performUpdate()
+        }
 
         this.btnDelete = view.findViewById(R.id.btnDelete)
         this.btnDelete.setOnClickListener {
-            ProductService.instance.deleteProduct(
-                this.product.id!!,
-                {
-                    val snack = Snackbar.make(
-                        this.requireView(),
-                        "Producto: ${this.product.name} fue eliminado exitosamente",
-                        Snackbar.LENGTH_INDEFINITE
-                    )
-                    snack.setAction("Aceptar") {
-                        this.parentFragmentManager.popBackStack()
-                    }
-                    snack.show()
-                },
-                { errorMessage ->
-                    Toast.makeText(
-                        this.context,
-                        "Ocurrió un error: $errorMessage",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            )
+            this.performDelete()
         }
 
+    }
+
+    private fun performUpdate() {
+
+        this.product.name = this.tilProductName.editText!!.text.toString()
+        this.product.price = this.tilProductPrice.editText!!.text.toString().toDouble()
+
+        ProductService.instance.updateProduct(
+            this.product,
+            { updatedProduct ->
+                val snack = Snackbar.make(
+                    this.requireView(),
+                    "Producto: ${updatedProduct.name} fue actualizado exitosamente",
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                snack.setAction("Aceptar") {
+                    this.parentFragmentManager.popBackStack()
+                }
+                snack.show()
+            },
+            { errorMessage ->
+                Toast.makeText(
+                    this.context,
+                    "Ocurrió un error: $errorMessage",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+
+    }
+
+    private fun performDelete() {
+        ProductService.instance.deleteProduct(
+            this.product.id!!,
+            {
+                val snack = Snackbar.make(
+                    this.requireView(),
+                    "Producto: ${this.product.name} fue eliminado exitosamente",
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                snack.setAction("Aceptar") {
+                    this.parentFragmentManager.popBackStack()
+                }
+                snack.show()
+            },
+            { errorMessage ->
+                Toast.makeText(
+                    this.context,
+                    "Ocurrió un error: $errorMessage",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
     }
 
     companion object {
