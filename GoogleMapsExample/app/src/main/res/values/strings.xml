@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GoogleMapsExample</string>
+    <string name="hello_google_maps">Hello Google Maps!!</string>
+</resources>
