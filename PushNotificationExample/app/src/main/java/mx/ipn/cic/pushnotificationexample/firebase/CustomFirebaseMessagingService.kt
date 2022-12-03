@@ -35,6 +35,14 @@ class CustomFirebaseMessagingService : FirebaseMessagingService() {
         Log.i("MPS", "TITULO: $title")
         Log.i("MPS", "BODY: $body")
 
+        if(message.data != null){
+
+            Log.i("MPS", "idAlgo: ${message.data["idAlgo"]}")
+            Log.i("MPS", "extra1: ${message.data["extra1"]}")
+            Log.i("MPS", "extra2: ${message.data["extra2"]}")
+
+        }
+
         launchLocalNotification(message)
 
     }
