@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "82266566958",
+    "firebase_url": "https://diplomadoandroid-b09d9-default-rtdb.firebaseio.com",
+    "project_id": "diplomadoandroid-b09d9",
+    "storage_bucket": "diplomadoandroid-b09d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82266566958:android:a70ae49806823702ed8abf",
+        "android_client_info": {
+          "package_name": "mx.ipn.cic.pushnotificationexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "82266566958-oo74dcuv9m8hjar0ca6pbe1shmc1c23q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa1P0ZpaUhmilzMXx7s8Qf6PFH1MoXdTI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82266566958-oo74dcuv9m8hjar0ca6pbe1shmc1c23q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
